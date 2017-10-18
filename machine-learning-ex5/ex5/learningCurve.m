@@ -53,7 +53,24 @@ error_val   = zeros(m, 1);
 
 % ---------------------- Sample Solution ----------------------
 
-
+for i = 1:m
+	% get theta
+	X_t = X(1:i, :);
+	y_t = y(1:i);
+		
+	X_v = Xval(1:i, :);
+	y_v = yval(1:i);
+	
+	theta_ = trainLinearReg(X_t,y_t,lambda);
+	
+	% get error of train sample
+	error_train(i) = linearRegCostFunction(X_t, y_t, theta_, 0);
+	
+	% get error of validate sample
+	error_val(i) = linearRegCostFunction(Xval, yval, theta_, 0); % use the all samples of test
+	
+	
+end
 
 
 

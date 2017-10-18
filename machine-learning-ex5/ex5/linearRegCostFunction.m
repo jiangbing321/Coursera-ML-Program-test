@@ -10,7 +10,7 @@ m = length(y); % number of training examples
 
 % You need to return the following variables correctly 
 J = 0;
-grad = zeros(size(theta));
+grad = zeros(size(theta),1);
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost and gradient of regularized linear 
@@ -20,13 +20,19 @@ grad = zeros(size(theta));
 %
 
 
+hx_y = (X*theta-y);
+
+J = sum(hx_y.^2)/(2*m) + lambda*sum(theta(2:end,:).^2)/(2*m);
+
+%X
+%bsxfun(@times,X,hx_y)
 
 
+sum_ = sum(bsxfun(@times,X,hx_y))/m;
 
+grad = sum_' .+ theta*(lambda/m);
 
-
-
-
+grad(1) = grad(1) - theta(1)*(lambda/m);
 
 
 

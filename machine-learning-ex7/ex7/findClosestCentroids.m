@@ -22,10 +22,15 @@ idx = zeros(size(X,1), 1);
 %
 
 
+tmp = zeros(size(X,1),K);
 
+for i=1:K
+	centroid_t = centroids(i,:);
+	x_c = bsxfun(@minus, X, centroid_t);
+	tmp(:,i) = sum(x_c.^2,2);
+end
 
-
-
+[dy,idx]=min(tmp,[],2); %% dy save the min value of row, idx save the index of the min value
 
 % =============================================================
 

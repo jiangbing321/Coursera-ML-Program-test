@@ -40,17 +40,19 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
+x_theta_minus_y = (X*Theta'-Y).*R; %% movies x users)
+J_without_regular = sum( ( x_theta_minus_y.^2 )(:) )/2;
 
 
+X_grad_without_regular = x_theta_minus_y * Theta ;  %% (movies X users) * (users X features) = movies X features
+Theta_grad_without_regular = x_theta_minus_y' * X ;  %% ( users X movies) * (movies X features) = users X features
 
 
+J = J_without_regular + (sum(X(:).^2) + sum(Theta(:).^2))*lambda/2;
 
 
-
-
-
-
-
+X_grad = X_grad_without_regular + lambda*X;
+Theta_grad = Theta_grad_without_regular + lambda*Theta;
 
 
 
